@@ -2,9 +2,8 @@
 
 # Shell to use for running scripts
 SHELL := $(shell which bash)
-IMAGE_NAME := codelytv/typescript-ddd-skeleton
+IMAGE_NAME := motorbike-shop-api-ddd
 SERVICE_NAME := app
-MOOC_APP_NAME := cms
 
 # Test if the dependencies we need to run this Makefile are installed
 DOCKER := $(shell command -v docker)
@@ -19,8 +18,14 @@ ifndef DOCKER_COMPOSE
 	@exit 1
 endif
 
-default: build
+# Run tests
+test: deps start_database
+	npm test
 
-# Build image
-build:
-	docker build -t $(IMAGE_NAME):dev .
+# Clean container
+clean:
+	docker-compose down --rmi local --volumes
+
+# Start database container in background
+start_database:
+	docker-compose up -d mongo
