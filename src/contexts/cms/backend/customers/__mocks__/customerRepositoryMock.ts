@@ -40,8 +40,8 @@ export default class CustomerRepositoryMock implements CustomerRepository {
     this.mockDelete(customer);
   }
 
-  assertDeleteHasBeenCalledWith(id: CustomerId): void {
-    expect(this.mockDelete).toHaveBeenLastCalledWith(id);
+  assertDeleteHasBeenCalledWith(customer: Customer): void {
+    expect(this.mockDelete).toHaveBeenLastCalledWith(customer);
   }
 
   assertNotingDelete(): void {
