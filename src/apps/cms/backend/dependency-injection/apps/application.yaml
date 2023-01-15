@@ -1,5 +1,23 @@
 services:
-
   Apps.cms.controllers.StatusGetController:
     class: ../../controllers/StatusGetController
     arguments: []
+
+  Apps.cms.backend.MongoConfig:
+    factory:
+      class: '../../../../../contexts/cms/backend/shared/infrastructure/persistence/mongo/mongoConfigFactory'
+      method: 'createConfig'
+
+  Shared.MongoConnectionManager:
+    factory:
+      class: ../../../../../contexts/shared/infrastructure/persistence/mongo/mongoClientFactory
+      method: 'createClient'
+    arguments: ['cms', '@Apps.cms.backend.MongoConfig']
+
+  Apps.cms.contexts.shared.EnvironmentArranger:
+    class: ../../../../../contexts/shared/infrastructure/persistence/mongo/mongoEnvironmentArranger
+    arguments: ['@Shared.MongoConnectionManager']
+
+  Apps.cms.contexts.customers.CustomerRepository:
+    class: ../../../../../contexts/cms/backend/customers/infrastructure/persistence/mongo/mongoCustomerRepository
+    arguments: ['@Shared.MongoConnectionManager']
