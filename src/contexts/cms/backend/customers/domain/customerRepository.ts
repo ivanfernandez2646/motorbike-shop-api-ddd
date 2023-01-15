@@ -7,5 +7,5 @@ export interface CustomerRepository {
 
   search(id: CustomerId): Promise<Nullable<Customer>>;
 
-  delete(customemr: Customer): Promise<void>;
+  delete(customer: Customer): Promise<void>;
 }
