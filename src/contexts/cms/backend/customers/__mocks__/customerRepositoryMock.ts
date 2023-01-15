@@ -24,6 +24,10 @@ export default class CustomerRepositoryMock implements CustomerRepository {
     expect(expectedBody).toStrictEqual(lastSavedCustomerBody);
   }
 
+  assertNothingUpdate(): void {
+    expect(this.mockSave).not.toHaveBeenCalled();
+  }
+
   async search(id: CustomerId): Promise<Nullable<Customer>> {
     return this.mockSearch(id);
   }

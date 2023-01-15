@@ -9,4 +9,14 @@ export default class CustomerNameMother {
   static random(): CustomerName {
     return CustomerNameMother.create(MotherCreator.firstName());
   }
+
+  static differentOf(name: CustomerName): CustomerName {
+    let newName: CustomerName = CustomerNameMother.random();
+
+    while (newName.equalsTo(name)) {
+      newName == CustomerNameMother.random();
+    }
+
+    return newName;
+  }
 }
