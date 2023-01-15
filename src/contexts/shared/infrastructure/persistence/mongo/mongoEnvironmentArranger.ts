@@ -2,30 +2,30 @@ import { MongoClient } from 'mongodb';
 import EnvironmentArranger from '../../arranger/environmentArranger';
 
 export default class MongoEnvironmentArranger extends EnvironmentArranger {
-  private _client: MongoClient;
+  private _client: Promise<MongoClient>;
 
-  constructor(client: MongoClient) {
+  constructor(client: Promise<MongoClient>) {
     super();
 
     this._client = client;
   }
 
   async arrange(): Promise<void> {
-    await this.cleanDatabase();
+    return this.cleanDatabase();
   }
 
   private async cleanDatabase() {
-    const client = this.client(),
+    const client = await this.client(),
       collections = await client.db().collections();
 
     await Promise.all(collections.map(collection => client.db().dropCollection(collection.collectionName)));
   }
 
-  close(): Promise<void> {
-    return this.client().close();
+  async close(): Promise<void> {
+    return (await this.client()).close();
   }
 
-  private client(): MongoClient {
+  private client(): Promise<MongoClient> {
     return this._client;
   }
 }
