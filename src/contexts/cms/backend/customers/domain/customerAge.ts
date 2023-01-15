@@ -1,5 +1,5 @@
-import InvalidArgumentError from '../../shared/domain/invalidArgumentError';
-import NumberValueObject from '../../shared/domain/numberValueObject';
+import InvalidArgumentError from '../../../../shared/domain/invalidArgumentError';
+import NumberValueObject from '../../../../shared/domain/numberValueObject';
 
 export default class CustomerAge extends NumberValueObject {
   constructor(value: number) {

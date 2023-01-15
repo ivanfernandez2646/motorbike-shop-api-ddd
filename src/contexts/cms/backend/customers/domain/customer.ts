@@ -1,4 +1,4 @@
-import AggregateRoot from '../../shared/domain/aggregateRoot';
+import AggregateRoot from '../../../../shared/domain/aggregateRoot';
 import CustomerAge from './customerAge';
 import CustomerEmail from './customerEmail';
 import CustomerId from './customerId';

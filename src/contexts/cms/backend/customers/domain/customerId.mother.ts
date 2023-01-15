@@ -1,4 +1,4 @@
-import UuidValueObjectMother from '../../shared/domain/uuidValueObject.mother';
+import UuidValueObjectMother from '../../../../shared/domain/uuidValueObject.mother';
 import CustomerId from './customerId';
 
 export default class CustomerIdMother {

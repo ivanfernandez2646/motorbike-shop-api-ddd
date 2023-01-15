@@ -1,17 +1,19 @@
+import faker from 'faker';
+
 export default class MotherCreator {
   static uuid(): string {
-    return fakerStatic.datatype.uuid();
+    return faker.datatype.uuid();
   }
 
   static firstName(): string {
-    return fakerStatic.name.firstName();
+    return faker.name.firstName();
   }
 
   static email(): string {
-    return fakerStatic.internet.email();
+    return faker.internet.email();
   }
 
   static positiveNumber(max?: number): number {
-    return fakerStatic.datatype.number({ min: 1, max });
+    return faker.datatype.number({ min: 1, max });
   }
 }

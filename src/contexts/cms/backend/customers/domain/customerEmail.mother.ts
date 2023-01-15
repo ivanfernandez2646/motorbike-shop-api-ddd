@@ -1,4 +1,4 @@
-import MotherCreator from '../../shared/domain/motherCreator';
+import MotherCreator from '../../../../shared/domain/motherCreator';
 import CustomerEmail from './customerEmail';
 
 export default class CustomerEmailMother {
