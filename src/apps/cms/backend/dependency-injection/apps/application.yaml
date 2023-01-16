@@ -21,3 +21,11 @@ services:
   Apps.cms.contexts.customers.CustomerRepository:
     class: ../../../../../contexts/cms/backend/customers/infrastructure/persistence/mongo/mongoCustomerRepository
     arguments: ['@Shared.MongoConnectionManager']
+
+  Apps.cms.contexts.customers.CustomerFinder:
+    class: ../../../../../contexts/cms/backend/customers/application/find/customerFinder
+    arguments: ['@Apps.cms.contexts.customers.CustomerRepository']
+
+  Apps.cms.controllers.customerGetController:
+    class: ../../controllers/customers/customerGetController
+    arguments: ['@Apps.cms.contexts.customers.CustomerFinder']
