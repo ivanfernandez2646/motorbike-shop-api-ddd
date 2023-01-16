@@ -31,4 +31,11 @@ defineFeature(feature, test => {
     thenTheResponseStatusCodeIs(then);
     thenTheResponseShouldBe(then);
   });
+
+  test("When a customer doesn't exist", ({ when, then }) => {
+    whenISendAGetRequest(when);
+
+    thenTheResponseStatusCodeIs(then);
+    thenTheResponseShouldBe(then);
+  });
 });

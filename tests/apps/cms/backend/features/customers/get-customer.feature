@@ -17,3 +17,11 @@ Feature: Get customer
         "age": 22
       }
       """
+
+  Scenario: When a customer doesn't exist
+    When I send a GET request to "/customer/08a55ccf-0ca2-48f8-a0a0-e8617039c991"
+    Then The response status code should be 404
+    Then The response error should be:
+     """
+       {"error": "Customer with id <08a55ccf-0ca2-48f8-a0a0-e8617039c991> not found"}
+     """
