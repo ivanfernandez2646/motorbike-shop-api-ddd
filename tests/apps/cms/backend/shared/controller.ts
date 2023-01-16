@@ -11,6 +11,12 @@ export const whenISendAGetRequest = (when: DefineStepFunction) => {
       _response = await _request.send();
     });
   },
+  whenISendADeleteRequest = (when: DefineStepFunction) => {
+    when(/I send a DELETE request to "(.+)"/, async (path: string) => {
+      _request = request(serverUrl).delete(path);
+      _response = await _request.send();
+    });
+  },
   whenISendAPutRequestWithBody = (when: DefineStepFunction) => {
     when(/I send a PUT request to "(.+)" with body:/, async (path: string, body: string) => {
       _request = request(serverUrl).put(path);
