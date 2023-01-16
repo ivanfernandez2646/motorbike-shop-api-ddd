@@ -25,3 +25,11 @@ services:
   Apps.cms.controllers.customerGetController:
     class: ../../controllers/customers/customerGetController
     arguments: ['@Apps.cms.contexts.customers.CustomerFinder']
+
+  Apps.cms.contexts.customers.CustomerCreator:
+    class: ../../../../../contexts/cms/backend/customers/application/create/customerCreator
+    arguments: ['@Apps.cms.contexts.customers.CustomerRepository']
+
+  Apps.cms.controllers.customerPutController:
+    class: ../../controllers/customers/customerPutController
+    arguments: ['@Apps.cms.contexts.customers.CustomerCreator']

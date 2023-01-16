@@ -10,7 +10,7 @@ export default abstract class StringRequiredValueObject extends StringValueObjec
 
   static ensureIsValidString(value: string): void {
     if (!value || value.trim() === '') {
-      throw new InvalidArgumentError(`<${this.constructor.name}> does not allow the value <${value}>`);
+      throw new InvalidArgumentError(`<${this.name}> does not allow the value <${value}>`);
     }
   }
 }

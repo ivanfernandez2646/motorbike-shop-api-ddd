@@ -19,8 +19,8 @@ export default class CustomerGetController extends Controller {
   }
 
   async _run(req: Request, res: Response): Promise<void> {
-    const id = new CustomerId(req.params.id);
-    const customer = await this.handler.run(id);
+    const id = new CustomerId(req.params.id),
+      customer = await this.handler.run(id);
 
     res.status(httpStatus.OK).send(customer.toPrimitives());
   }

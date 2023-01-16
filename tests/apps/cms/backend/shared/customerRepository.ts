@@ -11,7 +11,10 @@ const givenThereAreCustomers = (given: DefineStepFunction) => {
     await Promise.all(
       customers.map(c =>
         repository.save(
-          CustomerMother.fromPrimitives({ ...c, age: c.age ? parseInt(c.age) : CustomerAgeMother.random().value })
+          CustomerMother.fromPrimitives({
+            ...c,
+            age: c.age && !isNaN(Number(c.age)) ? Number(c.age) : CustomerAgeMother.random().value
+          })
         )
       )
     );

@@ -9,8 +9,8 @@ export default class CustomerAge extends NumberValueObject {
   }
 
   static ensureIsValidAge(value: number): void {
-    if (value <= 0) {
-      throw new InvalidArgumentError(`<${this.constructor.name}> must be bigger than 0. Current value: <${value}>`);
+    if (value <= 0 || isNaN(value)) {
+      throw new InvalidArgumentError(`<${this.name}> must be bigger than 0. Current value: <${value}>`);
     }
   }
 }

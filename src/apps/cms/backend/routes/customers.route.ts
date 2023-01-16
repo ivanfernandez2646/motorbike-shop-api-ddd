@@ -3,6 +3,9 @@ import CustomerGetController from '../controllers/customers/customerGetControlle
 import container from '../dependency-injection';
 
 export const register = (router: Router) => {
-  const controller: CustomerGetController = container.get('Apps.cms.controllers.customerGetController');
-  router.get('/customer/:id', (req: Request, res: Response) => controller.run(req, res));
+  const customerGetController: CustomerGetController = container.get('Apps.cms.controllers.customerGetController');
+  router.get('/customer/:id', (req: Request, res: Response) => customerGetController.run(req, res));
+
+  const customerPutController: CustomerGetController = container.get('Apps.cms.controllers.customerPutController');
+  router.put('/customer/:id', (req: Request, res: Response) => customerPutController.run(req, res));
 };

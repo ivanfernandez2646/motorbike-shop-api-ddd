@@ -12,7 +12,7 @@ export const whenISendAGetRequest = (when: DefineStepFunction) => {
     });
   },
   whenISendAPutRequestWithBody = (when: DefineStepFunction) => {
-    when(/I send a PUT request to "(.+) with body:"/, async (path: string, body: string) => {
+    when(/I send a PUT request to "(.+)" with body:/, async (path: string, body: string) => {
       _request = request(serverUrl).put(path);
       _response = await _request.send(JSON.parse(body));
     });
@@ -24,7 +24,7 @@ export const whenISendAGetRequest = (when: DefineStepFunction) => {
   },
   thenTheResponseShouldBeEmpty = (then: DefineStepFunction) => {
     then(/The response should be empty/, () => {
-      expect(_response.body).toBe('');
+      expect(_response.body).toMatchObject({});
     });
   },
   thenTheResponseShouldBe = (then: DefineStepFunction) => {

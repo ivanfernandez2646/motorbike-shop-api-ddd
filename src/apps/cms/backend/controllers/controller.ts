@@ -28,7 +28,7 @@ export default abstract class Controller {
     }
 
     if (!isExceptionHandled) {
-      res.status(httpStatus.INTERNAL_SERVER_ERROR).json(err);
+      res.status(httpStatus.INTERNAL_SERVER_ERROR).send({ error: err.message });
     }
   }
 
