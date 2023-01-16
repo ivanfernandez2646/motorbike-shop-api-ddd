@@ -1,4 +1,4 @@
-import Customer from './customer';
+import Customer, { CustomerPrimitives } from './customer';
 import CustomerAge from './customerAge';
 import CustomerAgeMother from './customerAge.mother';
 import CustomerEmail from './customerEmail';
@@ -30,5 +30,9 @@ export default class CustomerMother {
       age = overwrites?.age ? overwrites.age : CustomerAgeMother.random();
 
     return CustomerMother.create({ id, name, email, age });
+  }
+
+  static fromPrimitives(plainData: CustomerPrimitives) {
+    return Customer.fromPrimitives(plainData);
   }
 }
