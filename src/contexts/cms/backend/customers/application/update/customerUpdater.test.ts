@@ -43,7 +43,7 @@ describe('CustomerUpdater', () => {
     repository.assertNothingUpdate();
   });
 
-  it.only('should update a customer', async () => {
+  it('should update a customer', async () => {
     const repository = new CustomerRepositoryMock(),
       finder = new CustomerFinder(repository),
       updater = new CustomerUpdater(finder, repository),
