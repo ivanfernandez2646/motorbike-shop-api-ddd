@@ -41,3 +41,11 @@ services:
   Apps.cms.controllers.customerDeleteController:
     class: ../../controllers/customers/customerDeleteController
     arguments: ['@Apps.cms.contexts.customers.CustomerDeleter']
+
+  Apps.cms.contexts.customers.CustomerUpdater:
+    class: ../../../../../contexts/cms/backend/customers/application/update/customerUpdater
+    arguments: ['@Apps.cms.contexts.customers.CustomerFinder', '@Apps.cms.contexts.customers.CustomerRepository']
+
+  Apps.cms.controllers.customerPatchController:
+    class: ../../controllers/customers/customerPatchController
+    arguments: ['@Apps.cms.contexts.customers.CustomerUpdater']

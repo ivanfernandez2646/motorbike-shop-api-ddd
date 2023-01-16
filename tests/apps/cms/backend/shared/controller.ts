@@ -23,6 +23,12 @@ export const whenISendAGetRequest = (when: DefineStepFunction) => {
       _response = await _request.send(JSON.parse(body));
     });
   },
+  whenISendAPatchRequestWithBody = (when: DefineStepFunction) => {
+    when(/I send a PATCH request to "(.+)" with body:/, async (path: string, body: string) => {
+      _request = request(serverUrl).patch(path);
+      _response = await _request.send(JSON.parse(body));
+    });
+  },
   thenTheResponseStatusCodeIs = (then: DefineStepFunction) => {
     then(/The response status code should be (\d+)/, async (status: string) => {
       expect(_response.statusCode).toBe(parseInt(status));
