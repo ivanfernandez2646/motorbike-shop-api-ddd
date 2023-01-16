@@ -1,8 +1,4 @@
 services:
-  Apps.cms.controllers.StatusGetController:
-    class: ../../controllers/StatusGetController
-    arguments: []
-
   Apps.cms.backend.MongoConfig:
     factory:
       class: '../../../../../contexts/cms/backend/shared/infrastructure/persistence/mongo/mongoConfigFactory'
