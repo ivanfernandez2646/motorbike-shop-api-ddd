@@ -1,0 +1,162 @@
+openapi: 3.0.3
+info:
+  title: MotorBike Shop API DDD
+  description: |-
+    MotorBikse Shop API DDD by Iván Fernández Campos
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+    description: Local enviornment.
+  - url: http://localhost:5000
+    description: Production environment.
+tags:
+  - name: customer
+    description: Everything about your Customers
+paths:
+  /customer/{id}:
+    put:
+      tags:
+        - customer
+      summary: Add a new customer to the store
+      description: Add a new customer to the store
+      operationId: addCustomer
+      parameters:
+        - name: id
+          in: path
+          description: The customer id that needs to be added
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Create a new customer in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerCreateProps'
+        required: true
+      responses:
+        '201':
+          description: Created successfully
+        '302':
+          description: Customer already exists
+    patch:
+      tags:
+        - customer
+      summary: Update an existing Customer
+      description: Update an existing Customer by Id
+      operationId: updateCustomer
+      parameters:
+        - name: id
+          in: path
+          description: The customer id that needs to be updated
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Update an existent Customer in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerUpdatableProps'
+        required: true
+      responses:
+        '204':
+          description: Successful operation
+        '404':
+          description: Customer not found
+    get:
+      tags:
+        - customer
+      summary: Find a customer
+      description: Find a customer from the shop.
+      operationId: findCustomer
+      parameters:
+        - name: id
+          in: path
+          description: The customer id that needs to be found
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+        '404':
+          description: Customer not found
+    delete:
+      tags:
+        - customer
+      summary: Delete customer
+      description: Delete a customer from the shop.
+      operationId: deleteCustomer
+      parameters:
+        - name: id
+          in: path
+          description: The customer id that needs to be deleted
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+        '404':
+          description: Customer not found
+components:
+  schemas:
+    Customer:
+      required:
+        - id
+        - name
+        - email
+        - age
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 407bb261-d89a-4720-9794-7113635e9a1b
+        name:
+          type: string
+          example: theUser
+        email:
+          type: string
+          example: john@email.com
+        age:
+          type: integer
+          format: int64
+          minimum: 1
+          example: 10
+    CustomerCreateProps:
+      required:
+        - name
+        - email
+        - age
+      type: object
+      properties:
+        name:
+          type: string
+          example: theUser
+        email:
+          type: string
+          example: john@email.com
+        age:
+          type: integer
+          format: int64
+          minimum: 1
+          example: 10
+    CustomerUpdatableProps:
+      type: object
+      properties:
+        name:
+          type: string
+          example: theUser
+        email:
+          type: string
+          example: john@email.com
