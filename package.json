@@ -19,9 +19,10 @@
     "test:features": "npm run test:cms:backend:features",
     "test:integration": "NODE_ENV=test jest --config=./jest.config.integration.js",
     "test:cms:backend:features": "NODE_ENV=test jest --runInBand --config=./jest.config.cucumber.js",
-    "build": "npm run build:clean && npm run build:tsc && npm run build:di",
+    "build": "npm run build:clean && npm run build:tsc && npm run build:di && npm run build:swagger",
     "build:tsc": "tsc -p tsconfig.prod.json",
     "build:di": "copy 'src/**/*.{json,yaml,html,png}' dist/src",
+    "build:swagger": "copy 'docs/openapi.yml' dist",
     "build:clean": "rm -r dist; exit 0"
   },
   "dependencies": {
