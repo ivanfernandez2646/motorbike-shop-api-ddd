@@ -47,12 +47,13 @@ describe('CustomerUpdater', () => {
     const repository = new CustomerRepositoryMock(),
       finder = new CustomerFinder(repository),
       updater = new CustomerUpdater(finder, repository),
-      customer = CustomerMother.random();
+      customer = CustomerMother.random(),
+      newName = CustomerNameMother.differentOf(customer.name);
 
     repository.whenSearchThenReturn(customer);
 
-    await updater.run(customer.id, { name: CustomerNameMother.differentOf(customer.name).value });
+    await updater.run(customer.id, { name: newName.value });
 
-    repository.assertSaveHasBeenCalledWith(customer);
+    repository.assertSaveHasBeenCalledWith(CustomerMother.create({ ...customer, name: newName }));
   });
 });

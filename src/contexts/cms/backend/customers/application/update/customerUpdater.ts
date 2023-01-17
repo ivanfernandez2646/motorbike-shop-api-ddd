@@ -1,4 +1,5 @@
 import { Nullable } from '../../../../../shared/domain/nullable';
+import Customer from '../../domain/customer';
 import CustomerEmail from '../../domain/customerEmail';
 import CustomerId from '../../domain/customerId';
 import CustomerName from '../../domain/customerName';
@@ -28,7 +29,13 @@ export default class CustomerUpdater {
       isUpdate = (newName && !customer.name.equalsTo(newName)) || (newEmail && !customer.email.equalsTo(newEmail));
 
     if (isUpdate) {
-      await this.repository.save(customer);
+      const newCustomerData: Customer = new Customer({
+        id: customer.id,
+        name: newName || customer.name,
+        email: newEmail || customer.email,
+        age: customer.age
+      });
+      await this.repository.save(newCustomerData);
     }
   }
 }
