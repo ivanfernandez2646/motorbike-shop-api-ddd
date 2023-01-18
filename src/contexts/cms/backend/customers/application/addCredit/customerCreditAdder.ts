@@ -16,8 +16,10 @@ export default class CustomerCreditAdder {
   async run(id: CustomerId, newCredit: CustomerCredit): Promise<void> {
     const customer = await this.finder.run(id);
 
-    customer.addCredit(newCredit);
+    if (newCredit.value > 0) {
+      customer.addCredit(newCredit);
 
-    await this.repository.save(customer);
+      await this.repository.save(customer);
+    }
   }
 }

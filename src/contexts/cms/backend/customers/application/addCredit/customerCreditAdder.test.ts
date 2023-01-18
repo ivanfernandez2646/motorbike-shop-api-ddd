@@ -19,6 +19,19 @@ describe('CustomerCreditAdder', () => {
     );
   });
 
+  it('should not update the credit is the amount of the new credit to be added is 0', async () => {
+    const repository = new CustomerRepositoryMock(),
+      finder = new CustomerFinder(repository),
+      creditAdder = new CustomerCreditAdder(finder, repository),
+      customer = CustomerMother.randomWithoutCredit();
+
+    repository.whenSearchThenReturn(customer);
+
+    await creditAdder.run(customer.id, CustomerCreditMother.create(0));
+
+    repository.assertNothingUpdate();
+  });
+
   it('should add credit to a customer', async () => {
     const repository = new CustomerRepositoryMock(),
       finder = new CustomerFinder(repository),
