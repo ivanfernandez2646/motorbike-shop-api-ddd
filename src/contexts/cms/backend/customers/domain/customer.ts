@@ -1,5 +1,6 @@
 import AggregateRoot from '../../../../shared/domain/aggregateRoot';
 import CustomerAge from './customerAge';
+import CustomerCredit from './customerCredit';
 import CustomerEmail from './customerEmail';
 import CustomerId from './customerId';
 import CustomerName from './customerName';
@@ -11,6 +12,7 @@ export type CustomerPrimitives = {
   name: string;
   email: string;
   age: number;
+  credit: number;
 };
 
 export default class Customer extends AggregateRoot {
@@ -22,16 +24,23 @@ export default class Customer extends AggregateRoot {
 
   readonly age: CustomerAge;
 
+  readonly credit: CustomerCredit;
+
+  // TODO: in a future it will be okay other property (currency)
+  // readonly price: CustomerCurrency;
+
   constructor({
     id,
     name,
     email,
-    age
+    age,
+    credit
   }: {
     id: CustomerId;
     name: CustomerName;
     email: CustomerEmail;
     age: CustomerAge;
+    credit: CustomerCredit;
   }) {
     super();
 
@@ -39,6 +48,7 @@ export default class Customer extends AggregateRoot {
     this.name = name;
     this.email = email;
     this.age = age;
+    this.credit = credit;
   }
 
   static fromPrimitives(plainData: CustomerPrimitives): Customer {
@@ -46,7 +56,8 @@ export default class Customer extends AggregateRoot {
       id: new CustomerId(plainData.id),
       name: new CustomerName(plainData.name),
       email: new CustomerEmail(plainData.email),
-      age: new CustomerAge(plainData.age)
+      age: new CustomerAge(plainData.age),
+      credit: new CustomerCredit(plainData.credit)
     });
   }
 
@@ -55,7 +66,8 @@ export default class Customer extends AggregateRoot {
       id: this.id.value,
       name: this.name.value,
       email: this.email.value,
-      age: this.age.value
+      age: this.age.value,
+      credit: this.credit.value
     };
   }
 }
