@@ -49,3 +49,11 @@ services:
   Apps.cms.controllers.customerPatchController:
     class: ../../controllers/customers/customerPatchController
     arguments: ['@Apps.cms.contexts.customers.CustomerUpdater']
+
+  Apps.cms.contexts.customers.CustomerCreditAdder:
+    class: ../../../../../contexts/cms/backend/customers/application/addCredit/customerCreditAdder
+    arguments: ['@Apps.cms.contexts.customers.CustomerFinder', '@Apps.cms.contexts.customers.CustomerRepository']
+
+  Apps.cms.controllers.customerAddCreditController:
+    class: ../../controllers/customers/customerAddCreditController
+    arguments: ['@Apps.cms.contexts.customers.CustomerCreditAdder']

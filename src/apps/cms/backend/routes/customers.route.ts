@@ -3,6 +3,7 @@ import CustomerGetController from '../controllers/customers/customerGetControlle
 import container from '../dependency-injection';
 import CustomerDeleteController from '../controllers/customers/customerDeleteController';
 import CustomerPatchController from '../controllers/customers/customerPatchController';
+import CustomerAddCreditController from '../controllers/customers/customerAddCreditController';
 
 export const register = (router: Router) => {
   const customerGetController: CustomerGetController = container.get('Apps.cms.controllers.customerGetController');
@@ -20,4 +21,9 @@ export const register = (router: Router) => {
     'Apps.cms.controllers.customerPatchController'
   );
   router.patch('/customer/:id', (req: Request, res: Response) => customerPatchController.run(req, res));
+
+  const customerAddCreditController: CustomerAddCreditController = container.get(
+    'Apps.cms.controllers.customerAddCreditController'
+  );
+  router.patch('/customer/addCredit/:id', (req: Request, res: Response) => customerAddCreditController.run(req, res));
 };
