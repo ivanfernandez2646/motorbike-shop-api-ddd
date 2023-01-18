@@ -1,11 +1,7 @@
 import container from '../../../../../../../apps/cms/backend/dependency-injection';
 import EnvironmentArranger from '../../../../../../shared/infrastructure/arranger/environmentArranger';
-import Customer from '../../../domain/customer';
 import CustomerMother from '../../../domain/customer.mother';
-import CustomerAgeMother from '../../../domain/customerAge.mother';
-import CustomerEmailMother from '../../../domain/customerEmail.mother';
 import CustomerIdMother from '../../../domain/customerId.mother';
-import CustomerNameMother from '../../../domain/customerName.mother';
 import MongoCustomerRepository from './mongoCustomerRepository';
 
 const repository: MongoCustomerRepository = container.get('Apps.cms.contexts.customers.CustomerRepository'),
@@ -24,12 +20,7 @@ describe('MongoCustomerRepository', () => {
     it('should save a new customer', async () => {
       expect.hasAssertions();
 
-      const customer = new Customer({
-        id: CustomerIdMother.random(),
-        age: CustomerAgeMother.random(),
-        email: CustomerEmailMother.random(),
-        name: CustomerNameMother.random()
-      });
+      const customer = CustomerMother.random();
 
       await repository.save(customer);
 

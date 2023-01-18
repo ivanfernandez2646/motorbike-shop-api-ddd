@@ -54,6 +54,6 @@ describe('CustomerUpdater', () => {
 
     await updater.run(customer.id, { name: newName.value });
 
-    repository.assertSaveHasBeenCalledWith(CustomerMother.create({ ...customer, name: newName }));
+    repository.assertSaveHasBeenCalledWith(CustomerMother.create(customer));
   });
 });

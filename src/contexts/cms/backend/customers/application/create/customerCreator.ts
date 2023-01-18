@@ -1,4 +1,4 @@
-import Customer from '../../domain/customer';
+import Customer, { CustomerCreateProps } from '../../domain/customer';
 import CustomerAlreadyExists from '../../domain/customerAlreadyExists';
 import CustomerId from '../../domain/customerId';
 import { CustomerRepository } from '../../domain/customerRepository';
@@ -10,8 +10,11 @@ export default class CustomerCreator {
     this.repository = repository;
   }
 
-  async run(customer: Customer): Promise<void> {
-    await this.ensureCustomerDoesntExist(customer.id);
+  async run(customerCreateProps: CustomerCreateProps): Promise<void> {
+    await this.ensureCustomerDoesntExist(new CustomerId(customerCreateProps.id));
+
+    const customer = Customer.create(customerCreateProps);
+
     await this.repository.save(customer);
   }
 

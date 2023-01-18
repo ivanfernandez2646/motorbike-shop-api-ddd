@@ -13,4 +13,8 @@ export default class CustomerCredit extends NumberValueObject {
       throw new InvalidArgumentError(`<${this.name}> must be a positive number. Current value: <${value}>`);
     }
   }
+
+  addAmount(other: CustomerCredit): CustomerCredit {
+    return new CustomerCredit(this.value + other.value);
+  }
 }

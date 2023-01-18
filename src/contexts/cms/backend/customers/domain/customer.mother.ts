@@ -1,4 +1,4 @@
-import Customer, { CustomerPrimitives } from './customer';
+import Customer, { CustomerCreateProps, CustomerPrimitives } from './customer';
 import CustomerAge from './customerAge';
 import CustomerAgeMother from './customerAge.mother';
 import CustomerCredit from './customerCredit';
@@ -24,7 +24,8 @@ export default class CustomerMother {
     age: CustomerAge;
     credit: CustomerCredit;
   }) {
-    return new Customer({ id, name, email, age, credit });
+    const a = new Customer({ id, name, email, age, credit });
+    return a;
   }
 
   static random(overwrites?: {
@@ -43,7 +44,27 @@ export default class CustomerMother {
     return CustomerMother.create({ id, name, email, age, credit });
   }
 
+  static randomWithoutCredit(overwrites?: {
+    id?: CustomerId;
+    name?: CustomerName;
+    email?: CustomerEmail;
+    age?: CustomerAge;
+  }) {
+    const credit = CustomerCreditMother.create(0);
+
+    return CustomerMother.random({ ...overwrites, credit });
+  }
+
   static fromPrimitives(plainData: CustomerPrimitives) {
     return Customer.fromPrimitives(plainData);
+  }
+
+  static toCustomerCreatorProps(customer: Customer): CustomerCreateProps {
+    return {
+      id: customer.id.value,
+      name: customer.name.value,
+      age: customer.age.value,
+      email: customer.email.value
+    };
   }
 }

@@ -1,9 +1,9 @@
-import { CustomerUpdatableProps } from '../../domain/customer';
+import CustomerCredit from '../../domain/customerCredit';
 import CustomerId from '../../domain/customerId';
 import { CustomerRepository } from '../../domain/customerRepository';
 import CustomerFinder from '../find/customerFinder';
 
-export default class CustomerUpdater {
+export default class CustomerCreditAdder {
   private readonly finder: CustomerFinder;
 
   private readonly repository: CustomerRepository;
@@ -13,12 +13,11 @@ export default class CustomerUpdater {
     this.repository = repository;
   }
 
-  async run(id: CustomerId, updatableProps?: CustomerUpdatableProps): Promise<void> {
-    const customer = await this.finder.run(id),
-      isUpdate = customer.update({ ...updatableProps });
+  async run(id: CustomerId, newCredit: CustomerCredit): Promise<void> {
+    const customer = await this.finder.run(id);
 
-    if (isUpdate) {
-      await this.repository.save(customer);
-    }
+    customer.addCredit(newCredit);
+
+    await this.repository.save(customer);
   }
 }
