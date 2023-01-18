@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: MotorBike Shop API DDD
   description: |-
-    MotorBikse Shop API DDD by Iván Fernández Campos
+    MotorBikes Shop API DDD by Iván Fernández Campos
   version: 1.0.0
 servers:
   - url: http://localhost:5000
@@ -108,6 +108,33 @@ paths:
           description: Successful operation
         '404':
           description: Customer not found
+  /customer/addCredit/{id}:
+    patch:
+      tags:
+        - customer
+      summary: Add credit to an existing Customer
+      description: Add credit to an existing Customer by Id
+      operationId: addCreditToCustomer
+      parameters:
+        - name: id
+          in: path
+          description: The customer id that needs to be updated
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        description: Add credit to an existent Customer in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerAddCreditBody'
+        required: true
+      responses:
+        '204':
+          description: Successful operation
+        '404':
+          description: Customer not found
 components:
   schemas:
     Customer:
@@ -165,3 +192,13 @@ components:
         email:
           type: string
           example: john@email.com
+    CustomerAddCreditBody:
+      type: object
+      required:
+        - creditToAdd
+      properties:
+        creditToAdd:
+          type: number
+          format: float
+          minimum: 1
+          example: 5.50
