@@ -33,7 +33,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomerCreateProps'
+              $ref: '#/components/schemas/CustomerCreateBody'
         required: true
       responses:
         '201':
@@ -59,7 +59,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CustomerUpdatableProps'
+              $ref: '#/components/schemas/CustomerPatchBody'
         required: true
       responses:
         '204':
@@ -133,12 +133,17 @@ components:
           format: int64
           minimum: 1
           example: 10
-    CustomerCreateProps:
+        credit:
+          type: integer
+          format: int64
+          minimum: 0
+          example: 10
+    CustomerCreateBody:
+      type: object
       required:
         - name
         - email
         - age
-      type: object
       properties:
         name:
           type: string
@@ -151,7 +156,7 @@ components:
           format: int64
           minimum: 1
           example: 10
-    CustomerUpdatableProps:
+    CustomerPatchBody:
       type: object
       properties:
         name:

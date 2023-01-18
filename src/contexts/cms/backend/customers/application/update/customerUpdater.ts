@@ -13,9 +13,9 @@ export default class CustomerUpdater {
     this.repository = repository;
   }
 
-  async run(id: CustomerId, updatableProps?: CustomerUpdatableProps): Promise<void> {
+  async run(id: CustomerId, newProps?: CustomerUpdatableProps): Promise<void> {
     const customer = await this.finder.run(id),
-      isUpdate = customer.update({ ...updatableProps });
+      isUpdate = customer.update({ ...newProps });
 
     if (isUpdate) {
       await this.repository.save(customer);
