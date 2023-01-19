@@ -1,9 +1,9 @@
 {
-  "name": "typescript-ddd-skeleton",
+  "name": "motorbike-shop-api-ddd",
   "version": "1.0.0",
   "description": "",
   "repository": {
-    "url": "https://github.com/CodelyTV/typescript-ddd-skeleton"
+    "url": "https://github.com/ivanfernandez2646/motorbike-shop-api-ddd"
   },
   "license": "",
   "engines": {
@@ -14,6 +14,7 @@
     "dev:cms:backend": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules  ./src/apps/cms/backend/start.ts",
     "lint": "tslint src/**/*.ts{,x}",
     "test": "npm run test:unit && npm run test:integration && npm run test:features",
+    "test:windows": "docker-compose up -d mongo && npm run test:unit && npm run test:integration && npm run test:features",
     "test:unit": "NODE_ENV=test jest",
     "start:cms:backend": "NODE_ENV=production node dist/src/apps/cms/backend/start",
     "test:features": "npm run test:cms:backend:features",
@@ -24,7 +25,9 @@
     "build:di": "copy 'src/**/*.{json,yaml,html,png}' dist/src",
     "build:swagger": "copy 'docs/openapi.yml' dist",
     "build:clean": "rm -r dist; exit 0",
-    "deploy": "npm run build && npx http-request-cli get https://api.render.com/deploy/srv-cf3bp19gp3jl0q3r5n90?key=fVs2358RQWo"
+    "deploy": "npm run build && npx http-request-cli get https://api.render.com/deploy/srv-cf3bp19gp3jl0q3r5n90?key=fVs2358RQWo",
+    "up:mongo": "docker-compose up -d mongo",
+    "down:mongo": "docker-compose down --rmi local --volumes"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

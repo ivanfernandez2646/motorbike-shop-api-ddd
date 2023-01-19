@@ -29,3 +29,7 @@ clean:
 # Start database container in background
 start_database:
 	docker-compose up -d mongo
+
+# Start
+start: deps start_database
+	npm run dev:cms:backend
