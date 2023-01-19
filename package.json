@@ -14,7 +14,6 @@
     "dev:cms:backend": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules  ./src/apps/cms/backend/start.ts",
     "lint": "tslint src/**/*.ts{,x}",
     "test": "npm run test:unit && npm run test:integration && npm run test:features",
-    "test:windows": "docker-compose up -d mongo && npm run test:unit && npm run test:integration && npm run test:features",
     "test:unit": "NODE_ENV=test jest",
     "start:cms:backend": "NODE_ENV=production node dist/src/apps/cms/backend/start",
     "test:features": "npm run test:cms:backend:features",
