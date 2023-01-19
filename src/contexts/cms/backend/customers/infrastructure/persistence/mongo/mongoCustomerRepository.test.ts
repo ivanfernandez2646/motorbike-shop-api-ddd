@@ -1,5 +1,6 @@
 import container from '../../../../../../../apps/cms/backend/dependency-injection';
 import EnvironmentArranger from '../../../../../../shared/infrastructure/arranger/environmentArranger';
+import { SortType } from '../../../../../../shared/infrastructure/persistence/sortType';
 import CustomerMother from '../../../domain/customer.mother';
 import CustomerCreditMother from '../../../domain/customerCredit.mother';
 import CustomerIdMother from '../../../domain/customerId.mother';
@@ -86,7 +87,7 @@ describe('MongoCustomerRepository', () => {
 
       await Promise.all(customers.map(customer => repository.save(customer)));
 
-      expect(await repository.search({ credit: 'desc' })).toStrictEqual(expected);
+      expect(await repository.search({ credit: SortType.DESC })).toStrictEqual(expected);
     });
 
     it('should return customers matching sort criteria asc order', async () => {
@@ -101,7 +102,7 @@ describe('MongoCustomerRepository', () => {
 
       await Promise.all(customers.map(customer => repository.save(customer)));
 
-      expect(await repository.search({ credit: 'asc' })).toStrictEqual(expected);
+      expect(await repository.search({ credit: SortType.ASC })).toStrictEqual(expected);
     });
 
     it('sould return an empty array when there are not any customer', async () => {

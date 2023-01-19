@@ -1,3 +1,4 @@
+import { SortType } from '../../../../../shared/infrastructure/persistence/sortType';
 import { SortCriteria } from '../../../../../shared/infrastructure/persistence/sortCriteria';
 import CustomerRepositoryMock from '../../__mocks__/customerRepositoryMock';
 import Customer from '../../domain/customer';
@@ -20,7 +21,7 @@ describe('CustomerSearcher', () => {
     const repository = new CustomerRepositoryMock(),
       searcher = new CustomerSearcher(repository),
       customers = [CustomerMother.random(), CustomerMother.random()],
-      sort: SortCriteria<Customer> = { credit: 'asc' };
+      sort: SortCriteria<Customer> = { credit: SortType.ASC };
 
     repository.whenSearchThenReturn(customers);
 
