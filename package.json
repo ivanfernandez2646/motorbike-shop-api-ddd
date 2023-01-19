@@ -24,7 +24,7 @@
     "build:di": "copy 'src/**/*.{json,yaml,html,png}' dist/src",
     "build:swagger": "copy 'docs/openapi.yml' dist",
     "build:clean": "rm -r dist; exit 0",
-    "deploy": "npm run build && npx http-request-cli get https://api.render.com/deploy/srv-cf3bp19gp3jl0q3r5n90?key=fVs2358RQWo",
+    "deploy": "npm run build && npx http-request-cli get https://api.render.com/deploy/srv-cf4mjdg2i3mtiflr0m4g?key=8_g9xqc5tIQ",
     "up:mongo": "docker-compose up -d mongo",
     "down:mongo": "docker-compose down --rmi local --volumes"
   },
