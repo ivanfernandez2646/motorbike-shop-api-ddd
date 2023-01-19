@@ -15,7 +15,7 @@ export default class CustomerDeleteController extends Controller {
   }
 
   protected exceptions(): CustomException[] {
-    return [{ clazz: CustomerNotFound, statusCode: 404 }];
+    return [{ clazz: CustomerNotFound, statusCode: httpStatus.NOT_FOUND }];
   }
 
   async _run(req: Request, res: Response): Promise<void> {

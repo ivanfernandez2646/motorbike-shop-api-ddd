@@ -15,7 +15,7 @@ export default class CustomerPutController extends Controller {
   }
 
   protected exceptions(): CustomException[] {
-    return [{ clazz: CustomerAlreadyExists, statusCode: 302 }];
+    return [{ clazz: CustomerAlreadyExists, statusCode: httpStatus.FOUND }];
   }
 
   async _run(req: Request, res: Response): Promise<void> {
