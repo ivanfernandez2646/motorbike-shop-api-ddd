@@ -14,7 +14,7 @@ export default class MongoCustomerRepository extends MongoRepository<Customer> i
     return this.persist(customer.id.value, customer);
   }
 
-  async search(id: CustomerId): Promise<Nullable<Customer>> {
+  async find(id: CustomerId): Promise<Nullable<Customer>> {
     return this.byId(id.value, Customer.fromPrimitives);
   }
 
@@ -22,7 +22,7 @@ export default class MongoCustomerRepository extends MongoRepository<Customer> i
     return this.remove(customer.id.value);
   }
 
-  async searchAll(sort?: SortCriteria<Customer>): Promise<Customer[]> {
+  async search(sort?: SortCriteria<Customer>): Promise<Customer[]> {
     return this.getAll(Customer.fromPrimitives, sort);
   }
 }

@@ -19,7 +19,7 @@ export default class CustomerCreator {
   }
 
   private async ensureCustomerDoesntExist(id: CustomerId): Promise<void> {
-    const customer = await this.repository.search(id);
+    const customer = await this.repository.find(id);
 
     if (customer) {
       throw new CustomerAlreadyExists(customer.id.value);

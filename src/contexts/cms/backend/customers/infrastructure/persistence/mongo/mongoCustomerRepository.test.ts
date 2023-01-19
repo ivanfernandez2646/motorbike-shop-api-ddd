@@ -25,11 +25,11 @@ describe('MongoCustomerRepository', () => {
 
       await repository.save(customer);
 
-      expect(await repository.search(customer.id)).toStrictEqual(customer);
+      expect(await repository.find(customer.id)).toStrictEqual(customer);
     });
   });
 
-  describe('search', () => {
+  describe('find', () => {
     it('should return an existing customer', async () => {
       expect.hasAssertions();
 
@@ -37,13 +37,13 @@ describe('MongoCustomerRepository', () => {
 
       await repository.save(customer);
 
-      expect(await repository.search(customer.id)).toStrictEqual(customer);
+      expect(await repository.find(customer.id)).toStrictEqual(customer);
     });
 
     it("sould return null when customer doesn't exist", async () => {
       expect.hasAssertions();
 
-      const customer = await repository.search(CustomerIdMother.random());
+      const customer = await repository.find(CustomerIdMother.random());
 
       expect(customer).toBeNull();
     });
@@ -59,7 +59,7 @@ describe('MongoCustomerRepository', () => {
 
       await repository.delete(customer);
 
-      expect(await repository.search(customer.id)).toBeNull();
+      expect(await repository.find(customer.id)).toBeNull();
     });
 
     it("should do nothing if customer doesn't exist", async () => {
@@ -69,11 +69,11 @@ describe('MongoCustomerRepository', () => {
 
       await repository.delete(customer);
 
-      expect(await repository.search(customer.id)).toBeNull();
+      expect(await repository.find(customer.id)).toBeNull();
     });
   });
 
-  describe('searchAll', () => {
+  describe('search', () => {
     it('should return customers matching sort criteria desc order', async () => {
       expect.hasAssertions();
 
@@ -86,7 +86,7 @@ describe('MongoCustomerRepository', () => {
 
       await Promise.all(customers.map(customer => repository.save(customer)));
 
-      expect(await repository.searchAll({ credit: 'desc' })).toStrictEqual(expected);
+      expect(await repository.search({ credit: 'desc' })).toStrictEqual(expected);
     });
 
     it('should return customers matching sort criteria asc order', async () => {
@@ -101,13 +101,13 @@ describe('MongoCustomerRepository', () => {
 
       await Promise.all(customers.map(customer => repository.save(customer)));
 
-      expect(await repository.searchAll({ credit: 'asc' })).toStrictEqual(expected);
+      expect(await repository.search({ credit: 'asc' })).toStrictEqual(expected);
     });
 
     it('sould return an empty array when there are not any customer', async () => {
       expect.hasAssertions();
 
-      const customers = await repository.searchAll();
+      const customers = await repository.search();
 
       expect(customers).toStrictEqual([]);
     });

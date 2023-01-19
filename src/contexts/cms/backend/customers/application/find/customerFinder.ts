@@ -11,7 +11,7 @@ export default class CustomerFinder {
   }
 
   async run(id: CustomerId): Promise<Customer> {
-    const customer = await this.repository.search(id);
+    const customer = await this.repository.find(id);
 
     if (!customer) {
       throw new CustomerNotFound(id.value);

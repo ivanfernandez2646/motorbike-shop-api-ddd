@@ -12,7 +12,7 @@ describe('CustomerUpdater', () => {
       finder = new CustomerFinder(repository),
       updater = new CustomerUpdater(finder, repository);
 
-    repository.whenSearchThenReturn(null);
+    repository.whenFindThenReturn(null);
 
     await expect(updater.run(CustomerIdMother.random(), {})).rejects.toThrow(CustomerNotFound);
   });
@@ -23,7 +23,7 @@ describe('CustomerUpdater', () => {
       updater = new CustomerUpdater(finder, repository),
       customer = CustomerMother.random();
 
-    repository.whenSearchThenReturn(customer);
+    repository.whenFindThenReturn(customer);
 
     await updater.run(customer.id, { name: customer.name.value, email: customer.email.value });
 
@@ -36,7 +36,7 @@ describe('CustomerUpdater', () => {
       updater = new CustomerUpdater(finder, repository),
       customer = CustomerMother.random();
 
-    repository.whenSearchThenReturn(customer);
+    repository.whenFindThenReturn(customer);
 
     await updater.run(customer.id);
 
@@ -50,7 +50,7 @@ describe('CustomerUpdater', () => {
       customer = CustomerMother.random(),
       newName = CustomerNameMother.differentOf(customer.name);
 
-    repository.whenSearchThenReturn(customer);
+    repository.whenFindThenReturn(customer);
 
     await updater.run(customer.id, { name: newName.value });
 

@@ -11,7 +11,7 @@ describe('CustomerDeleter', () => {
       finder = new CustomerFinder(repository),
       deleter = new CustomerDeleter(finder, repository);
 
-    repository.whenSearchThenReturn(null);
+    repository.whenFindThenReturn(null);
 
     await expect(deleter.run(CustomerIdMother.random())).rejects.toThrow(CustomerNotFound);
 
@@ -24,7 +24,7 @@ describe('CustomerDeleter', () => {
       deleter = new CustomerDeleter(finder, repository),
       customer = CustomerMother.random();
 
-    repository.whenSearchThenReturn(customer);
+    repository.whenFindThenReturn(customer);
 
     await deleter.run(customer.id);
 

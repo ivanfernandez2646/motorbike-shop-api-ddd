@@ -12,7 +12,7 @@ describe('CustomerCreditAdder', () => {
       finder = new CustomerFinder(repository),
       creditAdder = new CustomerCreditAdder(finder, repository);
 
-    repository.whenSearchThenReturn(null);
+    repository.whenFindThenReturn(null);
 
     await expect(creditAdder.run(CustomerIdMother.random(), CustomerCreditMother.random())).rejects.toThrow(
       CustomerNotFound
@@ -25,7 +25,7 @@ describe('CustomerCreditAdder', () => {
       creditAdder = new CustomerCreditAdder(finder, repository),
       customer = CustomerMother.randomWithoutCredit();
 
-    repository.whenSearchThenReturn(customer);
+    repository.whenFindThenReturn(customer);
 
     await creditAdder.run(customer.id, CustomerCreditMother.create(0));
 
@@ -40,7 +40,7 @@ describe('CustomerCreditAdder', () => {
       oldCredit = CustomerCreditMother.create(customer.credit.value),
       newCredit = CustomerCreditMother.random();
 
-    repository.whenSearchThenReturn(customer);
+    repository.whenFindThenReturn(customer);
 
     await creditAdder.run(customer.id, newCredit);
 

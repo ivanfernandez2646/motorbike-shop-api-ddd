@@ -9,7 +9,7 @@ describe('CustomerFinder', () => {
     const repository = new CustomerRepositoryMock(),
       finder = new CustomerFinder(repository);
 
-    repository.whenSearchThenReturn(null);
+    repository.whenFindThenReturn(null);
 
     await expect(finder.run(CustomerIdMother.random())).rejects.toThrow(CustomerNotFound);
   });
@@ -19,11 +19,11 @@ describe('CustomerFinder', () => {
       finder = new CustomerFinder(repository),
       customer = CustomerMother.random();
 
-    repository.whenSearchThenReturn(customer);
+    repository.whenFindThenReturn(customer);
 
     const response = await finder.run(customer.id);
 
-    repository.assertSearchHasBeenCalledWith(customer.id);
+    repository.assertFindHasBeenCalledWith(customer.id);
     expect(response).toStrictEqual(customer);
   });
 });

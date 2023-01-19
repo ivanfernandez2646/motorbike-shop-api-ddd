@@ -6,9 +6,9 @@ import CustomerId from './customerId';
 export interface CustomerRepository {
   save(customer: Customer): Promise<void>;
 
-  search(id: CustomerId): Promise<Nullable<Customer>>;
+  find(id: CustomerId): Promise<Nullable<Customer>>;
 
   delete(customer: Customer): Promise<void>;
 
-  searchAll(sort?: SortCriteria<Customer>): Promise<Customer[]>;
+  search(sort?: SortCriteria<Customer>): Promise<Customer[]>;
 }

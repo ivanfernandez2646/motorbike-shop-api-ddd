@@ -10,7 +10,7 @@ describe('CustomerCreator', () => {
       customer = CustomerMother.random(),
       customerCreateProps = CustomerMother.toCustomerCreatorProps(customer);
 
-    repository.whenSearchThenReturn(customer);
+    repository.whenFindThenReturn(customer);
 
     await expect(creator.run(customerCreateProps)).rejects.toThrow(CustomerAlreadyExists);
   });
@@ -21,7 +21,7 @@ describe('CustomerCreator', () => {
       customer = CustomerMother.randomWithoutCredit(),
       customerCreateProps = CustomerMother.toCustomerCreatorProps(customer);
 
-    repository.whenSearchThenReturn(null);
+    repository.whenFindThenReturn(null);
 
     await creator.run(customerCreateProps);
 

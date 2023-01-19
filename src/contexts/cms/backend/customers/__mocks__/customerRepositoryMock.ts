@@ -2,13 +2,16 @@ import Customer from '../domain/customer';
 import { CustomerRepository } from '../domain/customerRepository';
 import CustomerId from '../domain/customerId';
 import { Nullable } from '../../../../shared/domain/nullable';
+import { SortCriteria } from '../../../../shared/infrastructure/persistence/sortCriteria';
 
 export default class CustomerRepositoryMock implements CustomerRepository {
   private mockSave = jest.fn();
 
-  private mockSearch = jest.fn();
+  private mockFind = jest.fn();
 
   private mockDelete = jest.fn();
+
+  private mockSearch = jest.fn();
 
   async save(customer: Customer): Promise<void> {
     this.mockSave(customer);
@@ -28,16 +31,16 @@ export default class CustomerRepositoryMock implements CustomerRepository {
     expect(this.mockSave).not.toHaveBeenCalled();
   }
 
-  async search(id: CustomerId): Promise<Nullable<Customer>> {
-    return this.mockSearch(id);
+  async find(id: CustomerId): Promise<Nullable<Customer>> {
+    return this.mockFind(id);
   }
 
-  whenSearchThenReturn(customer: Nullable<Customer>): void {
-    this.mockSearch.mockReturnValue(customer);
+  whenFindThenReturn(customer: Nullable<Customer>): void {
+    this.mockFind.mockReturnValue(customer);
   }
 
-  assertSearchHasBeenCalledWith(id: CustomerId): void {
-    expect(this.mockSearch).toHaveBeenLastCalledWith(id);
+  assertFindHasBeenCalledWith(id: CustomerId): void {
+    expect(this.mockFind).toHaveBeenLastCalledWith(id);
   }
 
   async delete(customer: Customer): Promise<void> {
@@ -50,5 +53,17 @@ export default class CustomerRepositoryMock implements CustomerRepository {
 
   assertNotingDelete(): void {
     expect(this.mockDelete).not.toHaveBeenCalled();
+  }
+
+  async search(sort?: SortCriteria<Customer>): Promise<Customer[]> {
+    return this.mockSearch(sort);
+  }
+
+  whenSearchThenReturn(customers: Customer[]): void {
+    this.mockSearch.mockReturnValue(customers);
+  }
+
+  assertSearchHasBeenCalledWith(sort?: SortCriteria<Customer>): void {
+    expect(this.mockSearch).toHaveBeenLastCalledWith(sort);
   }
 }
