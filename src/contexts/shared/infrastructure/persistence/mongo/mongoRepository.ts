@@ -1,5 +1,6 @@
-import { Collection, MongoClient } from 'mongodb';
+import { Collection, MongoClient, Sort } from 'mongodb';
 import AggregateRoot from '../../../domain/aggregateRoot';
+import { MongoSortCriteria } from './mongoSortCriteria';
 
 export abstract class MongoRepository<T extends AggregateRoot> {
   constructor(private _client: Promise<MongoClient>) {}
@@ -37,5 +38,20 @@ export abstract class MongoRepository<T extends AggregateRoot> {
     const collection = await this.collection();
 
     await collection.deleteOne({ _id: id });
+  }
+
+  protected async getAll(fromPrimitives: (plainData: any) => T, sort?: MongoSortCriteria<T>): Promise<T[]> {
+    const collection = await this.collection();
+
+    const records = await collection
+      .find()
+      .sort(sort ? (sort as Sort) : {})
+      .toArray();
+
+    if (records.length === 0) {
+      return [];
+    }
+
+    return records.map(r => fromPrimitives({ ...r, id: r._id }));
   }
 }
