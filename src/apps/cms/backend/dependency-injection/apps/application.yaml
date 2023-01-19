@@ -57,3 +57,11 @@ services:
   Apps.cms.controllers.customerAddCreditController:
     class: ../../controllers/customers/customerAddCreditController
     arguments: ['@Apps.cms.contexts.customers.CustomerCreditAdder']
+
+  Apps.cms.contexts.customers.CustomerSearcher:
+    class: ../../../../../contexts/cms/backend/customers/application/search/customerSearcher
+    arguments: ['@Apps.cms.contexts.customers.CustomerRepository']
+
+  Apps.cms.controllers.customerSearchSortByCreditController:
+    class: ../../controllers/customers/customerSearchSortByCreditController
+    arguments: ['@Apps.cms.contexts.customers.CustomerSearcher']

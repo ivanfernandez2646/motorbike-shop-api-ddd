@@ -4,8 +4,14 @@ import container from '../dependency-injection';
 import CustomerDeleteController from '../controllers/customers/customerDeleteController';
 import CustomerPatchController from '../controllers/customers/customerPatchController';
 import CustomerAddCreditController from '../controllers/customers/customerAddCreditController';
+import CustomerSearchSortByCreditController from '../controllers/customers/customerSearchSortByCreditController';
 
 export const register = (router: Router) => {
+  const customerSearchSortByCreditController: CustomerSearchSortByCreditController = container.get(
+    'Apps.cms.controllers.customerSearchSortByCreditController'
+  );
+  router.get('/customer/list', (req: Request, res: Response) => customerSearchSortByCreditController.run(req, res));
+
   const customerGetController: CustomerGetController = container.get('Apps.cms.controllers.customerGetController');
   router.get('/customer/:id', (req: Request, res: Response) => customerGetController.run(req, res));
 
