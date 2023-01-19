@@ -17,7 +17,7 @@ export default abstract class Controller {
   }
 
   private handleError(err: Error, res: Response) {
-    let isExceptionHandled: boolean = false;
+    let isExceptionHandled = false;
 
     for (const exception of this.exceptions()) {
       if (err instanceof exception.clazz) {

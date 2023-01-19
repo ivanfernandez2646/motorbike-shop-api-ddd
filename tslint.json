@@ -17,7 +17,8 @@
         "ignoreImports": true,
         "ignoreUrls": true,
         "ignoreTemplateLiterals": true,
-        "ignoreStrings": true
+        "ignoreStrings": true,
+        "ignoreRegExpLiterals": true
       }
     ],
     "no-consecutive-blank-lines": [true, 1],
@@ -44,13 +45,7 @@
     "no-duplicate-variable": true,
     "no-inferrable-types": [true, "ignore-params"],
     "no-var-keyword": true,
-    "variable-name": [
-      true,
-      "ban-keywords",
-      "check-format",
-      "allow-leading-underscore",
-      "allow-pascal-case"
-    ],
+    "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"],
     "no-empty": false,
     "no-shadowed-variable": true,
     "no-unused-expression": true,
@@ -77,14 +72,7 @@
         "variable-declaration": "onespace"
       }
     ],
-    "whitespace": [
-      true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ],
+    "whitespace": [true, "check-branch", "check-decl", "check-operator", "check-separator", "check-type"],
     "no-duplicate-imports": true
   }
 }

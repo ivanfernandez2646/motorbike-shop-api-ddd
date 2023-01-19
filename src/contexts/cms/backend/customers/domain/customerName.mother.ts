@@ -14,7 +14,7 @@ export default class CustomerNameMother {
     let newName: CustomerName = CustomerNameMother.random();
 
     while (newName.equalsTo(name)) {
-      newName == CustomerNameMother.random();
+      newName = CustomerNameMother.random();
     }
 
     return newName;
