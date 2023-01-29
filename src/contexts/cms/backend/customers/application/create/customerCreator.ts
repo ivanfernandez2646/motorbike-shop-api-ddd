@@ -13,7 +13,7 @@ export default class CustomerCreator {
   async run(props: CustomerCreateProps): Promise<void> {
     await this.ensureCustomerDoesntExist(new CustomerId(props.id));
 
-    const customer = Customer.create(props);
+    const customer = await Customer.create(props);
 
     await this.repository.save(customer);
   }

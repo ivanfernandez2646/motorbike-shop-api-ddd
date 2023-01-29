@@ -3,6 +3,8 @@ import { CustomerRepository } from '../domain/customerRepository';
 import CustomerId from '../domain/customerId';
 import { Nullable } from '../../../../shared/domain/nullable';
 import { SortCriteria } from '../../../../shared/infrastructure/persistence/sortCriteria';
+import SignUpAdultCustomerStrategy from '../domain/signUpAdultCustomerStrategy';
+import SignUpTeenagerCustomerStrategy from '../domain/signUpTeenagerCustomerStrategy';
 
 export default class CustomerRepositoryMock implements CustomerRepository {
   private mockSave = jest.fn();
@@ -24,6 +26,9 @@ export default class CustomerRepositoryMock implements CustomerRepository {
       lastSavedCustomerBody = lastSavedCustomer.toPrimitives();
 
     expect(lastSavedCustomer).toBeInstanceOf(Customer);
+    expect(lastSavedCustomer.signUpStrategy).toBeInstanceOf(
+      lastSavedCustomer.age.value >= 18 ? SignUpAdultCustomerStrategy : SignUpTeenagerCustomerStrategy
+    );
     expect(expectedBody).toStrictEqual(lastSavedCustomerBody);
   }
 

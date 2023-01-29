@@ -5,6 +5,9 @@ import CustomerCredit from './customerCredit';
 import CustomerEmail from './customerEmail';
 import CustomerId from './customerId';
 import CustomerName from './customerName';
+import SignUpAdultCustomerStrategy from './signUpAdultCustomerStrategy';
+import SignUpCustomerStrategy from './signUpCustomerStrategy';
+import SignUpTeenagerCustomerStrategy from './signUpTeenagerCustomerStrategy';
 
 // TODO: in a future it will be a prop "purchases" referenced to another module "purchases"
 
@@ -39,6 +42,8 @@ export default class Customer extends AggregateRoot {
 
   private _credit: CustomerCredit;
 
+  private readonly _signUpStrategy: SignUpCustomerStrategy;
+
   // TODO: in a future it will be okay other property (currency)
   // readonly price: CustomerCurrency;
 
@@ -52,6 +57,10 @@ export default class Customer extends AggregateRoot {
 
   public get credit(): CustomerCredit {
     return new CustomerCredit(this._credit.value);
+  }
+
+  public get signUpStrategy(): SignUpCustomerStrategy {
+    return this._signUpStrategy;
   }
 
   constructor({
@@ -74,9 +83,16 @@ export default class Customer extends AggregateRoot {
     this._email = email;
     this.age = age;
     this._credit = credit;
+
+    if (age.value >= 18) {
+      this._signUpStrategy = new SignUpAdultCustomerStrategy();
+      return;
+    }
+
+    this._signUpStrategy = new SignUpTeenagerCustomerStrategy();
   }
 
-  static create({ id, name, email, age }: CustomerCreateProps): Customer {
+  static async create({ id, name, email, age }: CustomerCreateProps): Promise<Customer> {
     const customer = new Customer({
       id: new CustomerId(id),
       name: new CustomerName(name),
@@ -84,6 +100,8 @@ export default class Customer extends AggregateRoot {
       age: new CustomerAge(Number(age)),
       credit: new CustomerCredit(0)
     });
+
+    await customer.signUpStrategy.execute();
 
     // TODO: in a future register domain event (customer.created)
     return customer;
