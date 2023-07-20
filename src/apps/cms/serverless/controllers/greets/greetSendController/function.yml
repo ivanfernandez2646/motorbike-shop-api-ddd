@@ -1,0 +1,11 @@
+greetSendController:
+  handler: controllers/greets/greetSendController/greetSendController.handler
+  environment:
+    QUEUE_URL: ${construct:greets-queue.queueUrl}
+  events:
+    - httpApi:
+        path: /greets/{name}
+        method: get
+        request:
+          paths: 
+            name: true

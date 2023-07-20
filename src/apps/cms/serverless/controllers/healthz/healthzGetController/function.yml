@@ -1,4 +1,4 @@
-healthz:
+healthzGetController:
   handler: controllers/healthz/healthzGetController/healthzGetController.handler
   events:
     - httpApi:

@@ -6,10 +6,20 @@ provider:
   runtime: nodejs14.x
   region: eu-west-1
 
+constructs:
+    greets-queue:
+        type: queue
+        worker:
+            handler: ./sqs/greets/greetsWorker.handler
+
 plugins:
   - serverless-esbuild
   - serverless-lift
+
 functions:
   # healthz
-  ${file(./controllers/healthz/healthzGetController/function.yml)}
+  - ${file(./controllers/healthz/healthzGetController/function.yml)}
+  # greets
+  - ${file(./controllers/greets/greetSendController/function.yml)}
+
 
