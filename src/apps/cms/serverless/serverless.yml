@@ -1,0 +1,15 @@
+service: motorbike-shop
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: eu-west-1
+
+plugins:
+  - serverless-esbuild
+  - serverless-lift
+functions:
+  # healthz
+  ${file(./controllers/healthz/healthzGetController/function.yml)}
+

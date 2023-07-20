@@ -1,0 +1,67 @@
+services:
+  Apps.cms.backend.MongoConfig:
+    factory:
+      class: '../../../../../contexts/cms/backend/shared/infrastructure/persistence/mongo/mongoConfigFactory'
+      method: 'createConfig'
+
+  Shared.MongoConnectionManager:
+    factory:
+      class: ../../../../../contexts/shared/infrastructure/persistence/mongo/mongoClientFactory
+      method: 'createClient'
+    arguments: ['cms', '@Apps.cms.backend.MongoConfig']
+
+  Apps.cms.contexts.shared.EnvironmentArranger:
+    class: ../../../../../contexts/shared/infrastructure/persistence/mongo/mongoEnvironmentArranger
+    arguments: ['@Shared.MongoConnectionManager']
+
+  Apps.cms.contexts.customers.CustomerRepository:
+    class: ../../../../../contexts/cms/backend/customers/infrastructure/persistence/mongo/mongoCustomerRepository
+    arguments: ['@Shared.MongoConnectionManager']
+
+  Apps.cms.contexts.customers.CustomerFinder:
+    class: ../../../../../contexts/cms/backend/customers/application/find/customerFinder
+    arguments: ['@Apps.cms.contexts.customers.CustomerRepository']
+
+  Apps.cms.controllers.customerGetController:
+    class: ../../controllers/customers/customerGetController
+    arguments: ['@Apps.cms.contexts.customers.CustomerFinder']
+
+  Apps.cms.contexts.customers.CustomerCreator:
+    class: ../../../../../contexts/cms/backend/customers/application/create/customerCreator
+    arguments: ['@Apps.cms.contexts.customers.CustomerRepository']
+
+  Apps.cms.controllers.customerPutController:
+    class: ../../controllers/customers/customerPutController
+    arguments: ['@Apps.cms.contexts.customers.CustomerCreator']
+
+  Apps.cms.contexts.customers.CustomerDeleter:
+    class: ../../../../../contexts/cms/backend/customers/application/delete/customerDeleter
+    arguments: ['@Apps.cms.contexts.customers.CustomerFinder', '@Apps.cms.contexts.customers.CustomerRepository']
+
+  Apps.cms.controllers.customerDeleteController:
+    class: ../../controllers/customers/customerDeleteController
+    arguments: ['@Apps.cms.contexts.customers.CustomerDeleter']
+
+  Apps.cms.contexts.customers.CustomerUpdater:
+    class: ../../../../../contexts/cms/backend/customers/application/update/customerUpdater
+    arguments: ['@Apps.cms.contexts.customers.CustomerFinder', '@Apps.cms.contexts.customers.CustomerRepository']
+
+  Apps.cms.controllers.customerPatchController:
+    class: ../../controllers/customers/customerPatchController
+    arguments: ['@Apps.cms.contexts.customers.CustomerUpdater']
+
+  Apps.cms.contexts.customers.CustomerCreditAdder:
+    class: ../../../../../contexts/cms/backend/customers/application/addCredit/customerCreditAdder
+    arguments: ['@Apps.cms.contexts.customers.CustomerFinder', '@Apps.cms.contexts.customers.CustomerRepository']
+
+  Apps.cms.controllers.customerAddCreditController:
+    class: ../../controllers/customers/customerAddCreditController
+    arguments: ['@Apps.cms.contexts.customers.CustomerCreditAdder']
+
+  Apps.cms.contexts.customers.CustomerSearcher:
+    class: ../../../../../contexts/cms/backend/customers/application/search/customerSearcher
+    arguments: ['@Apps.cms.contexts.customers.CustomerRepository']
+
+  Apps.cms.controllers.customerSearchSortByCreditController:
+    class: ../../controllers/customers/customerSearchSortByCreditController
+    arguments: ['@Apps.cms.contexts.customers.CustomerSearcher']

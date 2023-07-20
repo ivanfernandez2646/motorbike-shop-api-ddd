@@ -1,0 +1,6 @@
+healthz:
+  handler: controllers/healthz/healthzGetController/healthzGetController.handler
+  events:
+    - httpApi:
+        path: /healthz
+        method: get
